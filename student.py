@@ -1,51 +1,55 @@
-import pandas as pd
 import webbrowser as wb
+from Webserver import WebServer
+from BookingEngine import BookingEngine
 
 
-class student:
-    def __init__(self, name, age, ID, email):
+class Student:
+    def __init__(self, name, age, ID, email, df):  # where df is the small database
         self.name = name
         self.age = age
         self.ID = ID
         self.email = email
+        self.df = df
 
-    def Accessmap(self):
-        WebServer.MapInitialize()
-        print('map intialized')  # Webserver initializes the view campus map
+    def accessMap(self):
+        WebServer.mapInitialize()
+        print('map intialized')  # Webserver initializes the view of the campus map
 
-    def Accessroom(self):
-        if df.links[0] is None:
-            print('no link available')  # in case no link is available
+    def accessRoom(self):
+        if self.df.links[0] is None:
+            return False  # in case no link is available
         else:
-            wb.open_new_tab(str(df.links[0]))  # initialize the link uploaded by the professor
+            wb.open_new_tab(str(self.df.links[0]))  # initialize the link uploaded by the professor
+            return True             # return True for the GUI to know the operation was successful
 
-    def GetDiscounts(self):
-        WebServer.RequestLocation()  # Webserver sends a location request to the user
+    def getDiscounts(self):
+        WebServer.requestLocation()  # Webserver sends a location request to the user
 
-        if not WebServer.RequestLocation():
+        if not WebServer.requestLocation():
             print("No location found")  # if user rejects the location request, the function stops
         else:
-            SearchEngine.AccessDiscounts()  # Search engine searches the database and lists the restaurants
-            # close to the user with their respective info
+            Location = ''
+            Procurement.getByLocation(Location)  # The procurement class searches the database and lists the restaurants
+            # close to the user with their respective information
 
     def Book(self, timeslot):
         if timeslot:
-            BookingEngine.SendBooking() # sends request to student affairs for approval
+            BookingEngine.sendBooking()  # if there's a timeslot available, send request to student affairs for approval
             if StudentAffairs.ApproveRequest():
-                BookingEngine.BookSlot()  # if the request is approved, book the time
+                BookingEngine.bookSlot()  # if the request is approved, book the time
             else:
                 print("no approval given")
         if not timeslot:
             print("no slot available at this time")
 
-    def GetName(self):
+    def getName(self):
         return self.name
 
-    def GetAge(self):
+    def getAge(self):
         return self.age
 
-    def GetID(self):
+    def getID(self):
         return self.ID
 
-    def GetEmail(self):
+    def getEmail(self):
         return self.email

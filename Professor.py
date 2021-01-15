@@ -1,34 +1,32 @@
-import pandas as pd
 import webbrowser as wb
 
+
 class Professor:
-    def __init__(self, name, age, ID, email):
+    def __init__(self, name, age, ID, email, df): # where df is the small database
         self.name = name
         self.age = age
         self.ID = ID
         self.email = email
+        self.df = df
 
-    def upload(self):
-        link = input("upload your link here: ")  # Professors upload the meeting link to students
-        df.links[0] = link  # add link to database
-        print(" the link:" + link + " has been uploaded successfully!")
+    def upload(self, link):
+        self.df.links[0] = link  # store link in the database
 
     def research(self):
-        print("Click here to access AUB libraries")  # Professors conduct research using AUB libraries
-        wb.open_new_tab('www.aub.edu.lb/libraries/Pages/default.aspx')
+        wb.open_new_tab('www.aub.edu.lb/libraries/Pages/default.aspx') #Initialize the link of "AUB libraries"
 
     def __str__(self):
         return 'name: ' + str(self.name) + "\nage: " + str(self.age) \
                + "\nID: " + str(self.ID) + "\nemail: " + str(self.email)
 
-    def GetName(self):
+    def getName(self):
         return self.name
 
-    def GetAge(self):
+    def getAge(self):
         return self.age
 
-    def GetID(self):
+    def getID(self):
         return self.ID
 
-    def GetEmail(self):
+    def getEmail(self):
         return self.email

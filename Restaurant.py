@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# # Restaurant class
+#
+# restaurant class that holds the information needed for every offer given by a restaurant.
+#
+
+# In[190]:
+
 
 import pandas as pd
 
